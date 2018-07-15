@@ -16,6 +16,7 @@ type Reader interface {
 type Writer interface {
 	Write(chan string)
 }
+
 type LogProcess struct {
 	rc    chan []byte
 	wc    chan string
@@ -58,6 +59,7 @@ func (w *WriteToInfluxDB) Write(wc chan string) {
 }
 
 func (l *LogProcess) Process() {
+	// 127.0.0.1 - - [01/May/2018:12:29:56 +0800] "GET /img.zip HTTP/1.1" 200 3653244 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
 	for v := range l.rc {
 		l.wc <- strings.ToUpper(string(v))
 	}
